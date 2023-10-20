@@ -4,6 +4,7 @@ import artistsRouter from "./routes/artists.js";
 import albumsRouter from "./routes/albums.js";
 import tracksRouter from "./routes/tracks.js";
 import fullAlbumRouter from "./routes/fullAlbum.js";
+import albumsArtistsRouter from "./routes/albumsArtists.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,6 +17,7 @@ app.use("/artists", artistsRouter);
 app.use("/albums", albumsRouter);
 app.use("/tracks", tracksRouter);
 app.use("/fullAlbums", fullAlbumRouter);
+app.use("/albumsArtists", albumsArtistsRouter);
 
 app.get("/", (request, response) => {
   response.send("test");
