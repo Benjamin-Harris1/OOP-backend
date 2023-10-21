@@ -64,20 +64,16 @@ albumsRouter.put("/:id", async (request, response) => {
 // deletetes an album and associated references in albums_artists by id given
 albumsRouter.delete("/:id", async (request, response) => {
   const id = request.params.id;
-  const values = [id, id];
-
-  const deleteAssociationQuery = /*SQL*/ `
-    DELETE FROM albums_artists WHERE album_id = ?;
-    Delete From tracks_albums WHERE album_id = ?`;
-  await dbconfig.execute(deleteAssociationQuery, values);
-
-  const query = "DELETE FROM albums WHERE id=?;";
-
-  const [result] = await dbconfig.execute(query, values);
-
-  response.json(result);
+  const deleteAlbumArtistsQuery = "DELETE FROM albums_artists WHERE album_id = ?;";
+  const deleteTracksAlbumsQuery = "DELETE FROM tracks_albums WHERE album_id = ?;";
+  try {
+    await dbconfig.execute(deleteAlbumArtistsQuery, [id]);
+    await dbconfig.execute(deleteTracksAlbumsQuery, [id]);
+    response.json({ message: "Album deleted successfully" });
+  } catch (error) {
+    response.status(500).json({ error: "Internal server error" });
+  }
 });
-
 // missing: path for adding album artist association in junction table
 
 export default albumsRouter;

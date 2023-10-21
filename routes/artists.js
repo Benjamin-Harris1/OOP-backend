@@ -52,7 +52,7 @@ artistsRouter.delete("/:id", async (request, response) => {
   const id = request.params.id;
   const query = "DELETE FROM artists WHERE id=?;";
   const values = [id];
-  const [results] = await dbconfig.execute(query, values, fields);
+  const [results] = await dbconfig.execute(query, values);
   response.json(results);
 });
 
