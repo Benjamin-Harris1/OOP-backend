@@ -1,4 +1,4 @@
-Download og naviger til "/full-stack-web-app".
+Download og naviger til "/OOP-backend".
 
 Initialiser Node.js, express og cors ved at køre følgende kommandoer i terminalen.
 
@@ -8,6 +8,6 @@ I terminalen vær sikker på du er i root folderen. Når du er der skriv følgen
 
 node --watch app.js
 
-Link til azure deployment: https://mabi-testdata-01.azurewebsites.net/
+Link til azure deployment: https://musicdb-database-kea-benjamin.azurewebsites.net/
 
-Link til github-pages deployment: https://fili0727.github.io/full-stack-artist-app-frontend/
+Link til github-pages deployment: https://benjamin-harris1.github.io/OOP-frontend/
