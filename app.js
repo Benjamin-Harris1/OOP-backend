@@ -5,6 +5,7 @@ import albumsRouter from "./routes/albums.js";
 import tracksRouter from "./routes/tracks.js";
 import fullAlbumRouter from "./routes/fullAlbum.js";
 import albumsArtistsRouter from "./routes/albumsArtists.js";
+import albumsTracksRouter from "./routes/albumsTracks.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -13,11 +14,13 @@ app.use(express.json());
 app.use(cors());
 // ROUTERS
 
-app.use("/artists", artistsRouter);
+app.
+use("/artists", artistsRouter);
 app.use("/albums", albumsRouter);
 app.use("/tracks", tracksRouter);
 app.use("/fullAlbums", fullAlbumRouter);
 app.use("/albumsArtists", albumsArtistsRouter);
+app.use("/albumsTracks", albumsTracksRouter);
 
 app.get("/", (request, response) => {
   response.send("test");

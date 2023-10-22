@@ -67,10 +67,17 @@ tracksRouter.put("/:id", async (request, response) => {
 // Deletes a track with the specific ID
 tracksRouter.delete("/:id", async (request, response) => {
   const id = request.params.id;
-  const query = "DELETE FROM tracks WHERE id=?;";
-  const values = [id];
-  const [results] = await dbconfig.execute(query, values);
-  response.json(results);
+  const deleteTracksArtistsQuery = "DELETE FROM tracks_artists WHERE track_id = ?;";
+  const deleteTracksAlbumsQuery = "DELETE FROM tracks_albums WHERE track_id = ?;";
+  const deleteTrackQuery = "DELETE FROM tracks WHERE id = ?;";
+  try {
+    await dbconfig.execute(deleteTracksArtistsQuery, [id]);
+    await dbconfig.execute(deleteTracksAlbumsQuery, [id]);
+    await dbconfig.execute(deleteTrackQuery, [id]);
+    response.json({ message: "Track deleted successfully" });
+  } catch (error) {
+    response.status(500).json({ error: "Internal server error" });
+  }
 });
 
 export default tracksRouter;

@@ -50,10 +50,17 @@ artistsRouter.put("/:id", async (request, response) => {
 // Deletes an artist with the specific ID
 artistsRouter.delete("/:id", async (request, response) => {
   const id = request.params.id;
-  const query = "DELETE FROM artists WHERE id=?;";
-  const values = [id];
-  const [results] = await dbconfig.execute(query, values);
-  response.json(results);
+  const deleteArtistQuery = "DELETE FROM artists WHERE id = ?;";
+  const deleteTracksArtistsQuery = "DELETE FROM tracks_artists WHERE artist_id = ?;";
+  const deleteAlbumsArtistsQuery = "DELETE FROM albums_artists WHERE artist_id = ?;";
+  try {
+    await dbconfig.execute(deleteTracksArtistsQuery, [id]);
+    await dbconfig.execute(deleteAlbumsArtistsQuery, [id]);
+    await dbconfig.execute(deleteArtistQuery, [id]);
+    response.json({ message: "Artist deleted successfully" });
+  } catch (error) {
+    response.status(500).json({ error: "Internal server error" });
+  }
 });
 
 export default artistsRouter;
